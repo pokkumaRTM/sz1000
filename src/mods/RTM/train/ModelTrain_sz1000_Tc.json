@@ -90,6 +90,7 @@
 "smoothing": true,
 "notDisplayCab": false,
 "muteJointSound": true,
+"accuracy": "LOW",
 "accelerateion" : 0.002,
 "maxSpeed": [0.347, 0.76, 1.04, 1.39, 1.81],
 "playerPos": [[0.85, 0.2, 8.80], [0.0, 0.2, -8.95]],
