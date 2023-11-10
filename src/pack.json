@@ -1,6 +1,6 @@
 {
     "name" : "suzutetsu1000",
     "homepage": "https://github.com/suzumiya3084/suzutetsu1000",
-    "updateURL": "http://hogehoge.com/s/xxx/version.txt",
+    "updateURL": "https://github.com/suzumiya3084/suzutetsu1000/blob/main/version.txt",
     "version":"1.0"
 }
