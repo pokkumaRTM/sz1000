@@ -1,0 +1,29 @@
+記号説明
+←: 進行方向前
+→: 進行方向後
+
+
+・10両(6M4T)
+← ← ← ← ← → → → → →
+Tc Mp M  T  M   M  T  M Mp Tc
+補足: 4M6Tにする場合はM2両をTに置換
+
+・8両(4M4T)
+← ← ← ← → → → →
+Tc Mp M  T   T  M Mp Tc
+
+・7両(5M2T)
+← ← ← ← → → →
+Tc M  M  Mp M  M  Tc
+
+・6両(4M2T)
+← ← ← → → →
+Tc Mp M   M Mp Tc
+
+・5両(3M2T)
+← ← ← → →
+Tc M  Mp  M Tc
+
+・4両(2M2T)
+← ← → →
+Tc Mp  M Tc

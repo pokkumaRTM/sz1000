@@ -1,0 +1,131 @@
+{
+
+"trainName": "sz1000_Mp",
+"trainType": "EC",
+
+"trainModel2": {
+	"modelFile": "sz1000/sz1000_Mp.mqo",
+	"textures": [
+		["mat1", "textures/train/sz1000/sz1000_M.png", "Light,AlphaBlend"],
+		["mat2", "textures/train/sz1000/parts.png", ""],
+		["mat3", "textures/train/sz1000/alpha.png", "AlphaBlend"],
+		["mat4", "textures/train/sz1000/parts2.png", "Light"]
+	],
+				"rendererPath": "scripts/Render_sz1000_T.js"
+},
+
+"bogieModel2": { "modelFile": "sz1000/DT80.mqo",
+                   "textures": [["default", "textures/train/sz1000/DT80.png"]],
+                   "rendererPath": "scripts/Render_DT80.js"},
+
+"buttonTexture": "textures/train/sz1000/button/Mp.png",
+
+"rollsignTexture": "textures/train/sz1000/sign.png",
+"rollsignNames": [
+	"null",
+	"local",
+	"rapid",
+	"express",
+	"ltd-exp",
+	"not-in-service",
+	"test-run",
+	"minato-cc",
+	"null",
+	"duel"
+   ],
+
+  "rollsigns": [
+    {
+      "uv": [0.0, 1.0, 0.0, 1.0],
+      "pos": [[[1.38, 2.18, -0.28], [1.38, 2.04, -0.28], [1.38, 2.04, 0.28], [1.38, 2.18, 0.28]],
+	      [[-1.38, 2.18, 0.28], [-1.38, 2.04, 0.28], [-1.38, 2.04, -0.28], [-1.38, 2.18, -0.28]]],
+      "doAnimation": false
+    }
+  ],
+
+  "serverScriptPath": "scripts/Server_sz1000.js",
+  "soundScriptPath": "scripts/Sound_sz1000_M.js",
+  "sound_BrakeRelease": "sound_mugenlib:RTMLib.Brake.BR10N",
+  "sound_BrakeRelease2": "sound_mugenlib:RTMLib.Brake.BR10L",
+  "sound_Horn": "sound_szsoundlib:SZkeiteki",
+  "sound_DoorOpen": "",
+  "sound_DoorClose": "",
+  "sound_Announcement": [
+	["0_Tobira", "sound_szsoundlib:sokusin"],
+	["1_WaterCrown", "sound_mugenlib:RTMLib.sound.Water_Crown_3"],
+	["2_GotaDel", "sound_mugenlib:RTMLib.sound.Gota_del_Vient"],
+	["3_Taihi_AMelo", "sound_szsoundlib:SZ-Orange-A"],
+	["4_Honsen_AMelo", "sound_szsoundlib:SZ-Diary-A"],
+	["5_Honsen_BMelo", "sound_szsoundlib:SZ-Diary-B"],
+	["6_Taihi_BMelo", "sound_szsoundlib:SZ-Orange-B"]
+],
+
+"customButtons": [
+    ["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["null", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+],
+
+  "slotPos": [
+	[0.81, 0, 9.42, 2], [0.81, 0, 8.55, 2], [0.81, 0, 6.16, 2], [0.81, 0, 5.27, 2], [0.81, 0, 4.58, 2], [0.81, 0, 3.69, 2], [0.81, 0, 1.23, 2],[0.81, 0, 0.42, 2],
+    [0.81, 0, -9.42, 2], [0.81, 0, -8.55, 2], [0.81, 0, -6.16, 2], [0.81, 0, -5.27, 2], [0.81, 0, -4.58, 2], [0.81, 0, -3.69, 2], [0.81, 0, -1.23, 2],[0.81, 0, -0.42, 2],
+	[-0.81, 0, 9.42, 2], [-0.81, 0, 8.55, 2], [-0.81, 0, 6.16, 2], [-0.81, 0, 5.27, 2], [-0.81, 0, 4.58, 2], [-0.81, 0, 3.69, 2], [-0.81, 0, 1.23, 2],[-0.81, 0, 0.42, 2],
+    [-0.81, 0, -9.42, 2], [-0.81, 0, -8.55, 2], [-0.81, 0, -6.16, 2], [-0.81, 0, -5.27, 2], [-0.81, 0, -4.58, 2], [-0.81, 0, -3.69, 2], [-0.81, 0, -1.23, 2],[-0.81, 0, -0.42, 2]
+],
+
+"seatPosF": [
+	[0.81, 0, 9.42, 2], [0.81, 0, 8.55, 2], [0.81, 0, 6.16, 2], [0.81, 0, 5.27, 2], [0.81, 0, 4.58, 2], [0.81, 0, 3.69, 2], [0.81, 0, 1.23, 2],[0.81, 0, 0.42, 2],
+    [0.81, 0, -9.42, 2], [0.81, 0, -8.55, 2], [0.81, 0, -6.16, 2], [0.81, 0, -5.27, 2], [0.81, 0, -4.58, 2], [0.81, 0, -3.69, 2], [0.81, 0, -1.23, 2],[0.81, 0, -0.42, 2],
+	[-0.81, 0, 9.42, 2], [-0.81, 0, 8.55, 2], [-0.81, 0, 6.16, 2], [-0.81, 0, 5.27, 2], [-0.81, 0, 4.58, 2], [-0.81, 0, 3.69, 2], [-0.81, 0, 1.23, 2],[-0.81, 0, 0.42, 2],
+    [-0.81, 0, -9.42, 2], [-0.81, 0, -8.55, 2], [-0.81, 0, -6.16, 2], [-0.81, 0, -5.27, 2], [-0.81, 0, -4.58, 2], [-0.81, 0, -3.69, 2], [-0.81, 0, -1.23, 2],[-0.81, 0, -0.42, 2]
+],
+
+"doCulling": true,
+"renderLight": true,
+"smoothing": true,
+"notDisplayCab": false,
+"muteJointSound": true,
+"accelerateion" : 0.002,
+"maxSpeed": [0.347, 0.76, 1.04, 1.39, 1.81],
+"playerPos": [[0.0, 0.2, 8.95], [0.0, 0.2, -8.95]],
+"bogiePos": [[0.0, 0.0, 6.8], [0.0, 0.0, -6.8]],
+"trainDistance": 10.0,
+
+"door_left": [
+	{"objects": ["doorFL","doorFL1"],
+	"pos": [0.0, 0.0, 0.0],
+	"transform": [[0.0, 0.0, 0.65]]},
+	{"objects": ["doorBL","doorBL1"],
+	"pos": [0.0, 0.0, 0.0],
+	"transform": [[0.0, 0.0, -0.65]]}
+],
+"door_right": [
+	{"objects": ["doorFR","doorFR1"],
+	"pos": [0.0, 0.0, 0.0],
+	"transform": [[0.0, 0.0, 0.65]]},
+	{"objects": ["doorBR","doorBR1"],
+	"pos": [0.0, 0.0, 0.0],
+	"transform": [[0.0, 0.0, -0.65]]}
+],
+
+"pantograph_front": [
+{"objects": ["panta_C1_1"],	"pos": [0.0, 3.0118, 6.6860],	"transform": [[14, 1.0, 0.0, 0.0]],
+"childParts": [
+	{"objects": ["panta_C1_2"],	"pos": [0.0, 3.7151, 7.8641],	"transform": [[-24, 1.0, 0.0, 0.0]],
+	"childParts": [
+		{"objects": ["panta_C1_3"],	"pos": [0.0, 4.5998, 6.3814],	"transform": [[10, 1.0, 0.0, 0.0]]},
+		{"objects": ["panta_C1_5"],	"pos": [0.0, 3.5258, 7.9758],	"transform": [[28, 1.0, 0.0, 0.0]]} ] },
+	{"objects": ["panta_C1_4"],	"pos": [0.0, 3.6084, 7.7523],	"transform": [[-24, 1.0, 0.0, 0.0]]} ] }
+,
+{"objects": ["panta_D2_1"],	"pos": [0.0, 3.0118, -6.6860],	"transform": [[-14, 1.0, 0.0, 0.0]],
+"childParts": [
+	{"objects": ["panta_D2_2"],	"pos": [0.0, 3.7151, -7.8641],	"transform": [[24, 1.0, 0.0, 0.0]],
+	"childParts": [
+		{"objects": ["panta_D2_3"],	"pos": [0.0, 4.5998, -6.3814],	"transform": [[-10, 1.0, 0.0, 0.0]]},
+		{"objects": ["panta_D2_5"],	"pos": [0.0, 3.5258, -7.9758],	"transform": [[-28, 1.0, 0.0, 0.0]]} ] },
+	{"objects": ["panta_D2_4"],	"pos": [0.0, 3.6084, -7.7523],	"transform": [[24, 1.0, 0.0, 0.0]]} ] }
+]
+
+}
