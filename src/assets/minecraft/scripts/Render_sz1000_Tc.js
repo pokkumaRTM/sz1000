@@ -116,7 +116,7 @@ function render(entity, pass, par3)
 		body.render(renderer);
 		door_EM.render(renderer);
 		door_SE.render(renderer);
-		render_doors(entity, pass, door_LF, door_LB, door_RF, door_RB, 0.65, 2000, 1000, 0.5, 0, 1000, true);
+		render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB, 0.65, 2000, 1000, 0.5, 0, 1000, true);
 		render_light(entity);
 		render_cab(entity);
 		render_panta(entity, pantaDistance, pantaType);
@@ -127,7 +127,7 @@ function render(entity, pass, par3)
 	if(pass == 1){
 		alpha.render(renderer);
 		door_EM.render(renderer);
-		render_doors_a(entity, pass, door_LFa, door_LBa, door_RFa, door_RBa, 0.65, 2000, 1000, 0.5, 0, 1000, true);
+		render_doors_a(entity,pass, door_LFa, door_LBa, door_RFa, door_RBa, 0.65, 2000, 1000, 0.5, 0, 1000, true);
 	}
 	//発光部描画
 	if(pass > 1){
@@ -136,7 +136,7 @@ function render(entity, pass, par3)
 		door_SE.render(renderer);
 		render_light(entity);
 		render_cab(entity);
-		render_door(entity, doorMove);
+		render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB, 0.65, 2000, 1000, 0.5, 0, 1000, true);
 		suzu_unban_script(entity);
 		u_base.render(renderer);
 	}
@@ -266,12 +266,16 @@ function render_cab(entity){
 	GL11.glPopMatrix();
 }
 
-function render_doors(entity, pass, door_LF, door_LB, door_RF, door_RB, amount, delay1, count1, per, delay2, count2, sigmoid){
+function render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB, amount, delay1, count1, per, delay2, count2, sigmoid){
 	if((pass == 0 && renderer.currentMatId == 0) || typeof timeCount === "undefined"){
 		timeCount = Date.now();
 	}
 	var doorStateL = false;
 	var doorStateR = false;
+	try{
+		doorLmL = renderer.sigmoid(entity.doorMoveL / 60);
+		doorLmR = renderer.sigmoid(entity.doorMoveR / 60);
+	}catch(e){}
 	if(entity){
 		var dataMap = entity.getResourceState().getDataMap();
 		if(delay1+count1+delay2+count2 < timeCount-dataMap.getDouble("doorCountL") && dataMap.getBoolean("doorStateL") != (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 2)){
