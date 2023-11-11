@@ -116,7 +116,7 @@ function render(entity, pass, par3)
 		body.render(renderer);
 		door_EM.render(renderer);
 		door_SE.render(renderer);
-		render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB, 0.65, 2000, 1000, 0.5, 0, 1000, true);
+		render_door(entity, doorMove);
 		render_light(entity);
 		render_cab(entity);
 		render_panta(entity, pantaDistance, pantaType);
@@ -127,7 +127,7 @@ function render(entity, pass, par3)
 	if(pass == 1){
 		alpha.render(renderer);
 		door_EM.render(renderer);
-		render_doors_a(entity,pass, door_LFa, door_LBa, door_RFa, door_RBa, 0.65, 2000, 1000, 0.5, 0, 1000, true);
+		render_door_a(entity, doorMove);
 	}
 	//発光部描画
 	if(pass > 1){
@@ -136,7 +136,7 @@ function render(entity, pass, par3)
 		door_SE.render(renderer);
 		render_light(entity);
 		render_cab(entity);
-		render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB, 0.65, 2000, 1000, 0.5, 0, 1000, true);
+		render_door(entity, doorMove);
 		suzu_unban_script(entity);
 		u_base.render(renderer);
 	}
@@ -266,104 +266,40 @@ function render_cab(entity){
 	GL11.glPopMatrix();
 }
 
-function render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB, amount, delay1, count1, per, delay2, count2, sigmoid){
-	if((pass == 0 && renderer.currentMatId == 0) || typeof timeCount === "undefined"){
-		timeCount = Date.now();
-	}
-	var doorStateL = false;
-	var doorStateR = false;
+//##### render_ドア ####################
+function render_door(entity,doorMove){
+	var doorMoveL = 0.0,
+		doorMoveR = 0.0,
+		doorLmL = 0.0,
+		doorLmR = 0.0;
 	try{
+		doorMoveL = renderer.sigmoid(entity.doorMoveL / 60) * doorMove;
+		doorMoveR = renderer.sigmoid(entity.doorMoveR / 60) * doorMove;
 		doorLmL = renderer.sigmoid(entity.doorMoveL / 60);
 		doorLmR = renderer.sigmoid(entity.doorMoveR / 60);
 	}catch(e){}
-	if(entity){
-		var dataMap = entity.getResourceState().getDataMap();
-		if(delay1+count1+delay2+count2 < timeCount-dataMap.getDouble("doorCountL") && dataMap.getBoolean("doorStateL") != (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 2)){
-			dataMap.setDouble("doorCountL", timeCount, 0);
-			dataMap.setBoolean("doorStateL", (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 2), 0);
-		}
-		if(delay1+count1+delay2+count2 < timeCount-dataMap.getDouble("doorCountR") && dataMap.getBoolean("doorStateR") != (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 1)){
-			dataMap.setDouble("doorCountR", timeCount, 0);
-			dataMap.setBoolean("doorStateR", (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 1), 0);
-		}
-		var doorCountL = timeCount-dataMap.getDouble("doorCountL");
-		var doorCountR = timeCount-dataMap.getDouble("doorCountR");
-		var doorStateL = dataMap.getBoolean("doorStateL");
-		var doorStateR = dataMap.getBoolean("doorStateR");
-		if(delay1 < doorCountL){
-			if((doorCountL-delay1) < count1){
-				var doorMoveL = per*((doorCountL-delay1)/count1);
-			}else if(doorCountL < (delay1+count1+delay2)){
-				var doorMoveL = per;
-			}else if((doorCountL-delay1-count1-delay2) < count2){
-				var doorMoveL = per+(1-per)*((doorCountL-delay1-count1-delay2)/count2);
-			}else{
-				var doorMoveL = 1;
-			}
-		}else{
-			var doorMoveL = 0;
-		}
-		if(delay1 < doorCountR){
-			if((doorCountR-delay1) < count1){
-				var doorMoveR = per*((doorCountR-delay1)/count1);
-			}else if(doorCountR < (delay1+count1+delay2)){
-				var doorMoveR = per;
-			}else if((doorCountR-delay1-count1-delay2) < count2){
-				var doorMoveR = per+(1-per)*((doorCountR-delay1-count1-delay2)/count2);
-			}else{
-				var doorMoveR = 1;
-			}
-		}else{
-			var doorMoveR = 0;
-		}
-	}else{
-		var doorMoveL = 0;
-		var doorMoveR = 0;
-	}
-	if(!doorStateL){
-		var doorMoveL = 1-doorMoveL;
-	}
-	if(!doorStateR) var doorMoveR = 1-doorMoveR;
-	if(sigmoid){
-		if(doorMoveL  <  0.1){
-			var doorMoveL = doorMoveL*renderer.sigmoid(0.1)/0.1;
-		}else if(0.9  <  doorMoveL){
-			var doorMoveL = doorMoveL*renderer.sigmoid(1-0.9)/0.1+(1-renderer.sigmoid(1-0.9)/0.1);
-		}else{
-			var doorMoveL = renderer.sigmoid(doorMoveL);
-		}
-		if(doorMoveR  <  0.1){
-			var doorMoveR = doorMoveR*renderer.sigmoid(0.1)/0.1;
-		}else if(0.9  <  doorMoveR){
-			var doorMoveR = doorMoveR*renderer.sigmoid(1-0.9)/0.1+(1-renderer.sigmoid(1-0.9)/0.1);
-		}else{
-			var doorMoveR = renderer.sigmoid(doorMoveR);
-		}
-	}
-	if(door_LF){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveL*amount);
-		door_LF.render(renderer);
-		GL11.glPopMatrix();
-	}
-	if(door_LB){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveL*-amount);
-		door_LB.render(renderer);
-		GL11.glPopMatrix();
-	}
-	if(door_RF){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveR*amount);
-		door_RF.render(renderer);
-		GL11.glPopMatrix();
-	}
-	if(door_RB){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveR*-amount);
-		door_RB.render(renderer);
-		GL11.glPopMatrix();
-	}
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, doorMoveL);
+	door_LF.render(renderer);
+	GL11.glPopMatrix();
+	
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, -doorMoveL);
+	door_LB.render(renderer);
+	GL11.glPopMatrix();
+	
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, doorMoveR);
+	door_RF.render(renderer);
+	GL11.glPopMatrix();
+	
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, -doorMoveR);
+	door_RB.render(renderer);
+	GL11.glPopMatrix();
+	
+	//この先ランプ系統
+
 	//車外ドアランプ
 	if (doorMoveL > 0) {
 		door_LS.render(renderer);	
@@ -388,103 +324,34 @@ function render_doors(entity, doorMove, pass, door_LF, door_LB, door_RF, door_RB
 	    door_RM.render(renderer);
 	}
 }
-
-function render_doors_a(entity, pass, door_LFa, door_LBa, door_RFa, door_RBa, amount, delay1, count1, per, delay2, count2, sigmoid){
-	if((pass == 0 && renderer.currentMatId == 0) || typeof timeCount === "undefined"){
-		timeCount = Date.now();
-	}
-	var doorStateL = false;
-	var doorStateR = false;
-	if(entity){
-		var dataMap = entity.getResourceState().getDataMap();
-		if(delay1+count1+delay2+count2 < timeCount-dataMap.getDouble("doorCountL") && dataMap.getBoolean("doorStateL") != (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 2)){
-			dataMap.setDouble("doorCountL", timeCount, 0);
-			dataMap.setBoolean("doorStateL", (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 2), 0);
-		}
-		if(delay1+count1+delay2+count2 < timeCount-dataMap.getDouble("doorCountR") && dataMap.getBoolean("doorStateR") != (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 1)){
-			dataMap.setDouble("doorCountR", timeCount, 0);
-			dataMap.setBoolean("doorStateR", (entity.getTrainStateData(4) == 3 || entity.getTrainStateData(4) == 1), 0);
-		}
-		var doorCountL = timeCount-dataMap.getDouble("doorCountL");
-		var doorCountR = timeCount-dataMap.getDouble("doorCountR");
-		var doorStateL = dataMap.getBoolean("doorStateL");
-		var doorStateR = dataMap.getBoolean("doorStateR");
-		if(delay1 < doorCountL){
-			if((doorCountL-delay1) < count1){
-				var doorMoveL = per*((doorCountL-delay1)/count1);
-			}else if(doorCountL < (delay1+count1+delay2)){
-				var doorMoveL = per;
-			}else if((doorCountL-delay1-count1-delay2) < count2){
-				var doorMoveL = per+(1-per)*((doorCountL-delay1-count1-delay2)/count2);
-			}else{
-				var doorMoveL = 1;
-			}
-		}else{
-			var doorMoveL = 0;
-		}
-		if(delay1 < doorCountR){
-			if((doorCountR-delay1) < count1){
-				var doorMoveR = per*((doorCountR-delay1)/count1);
-			}else if(doorCountR < (delay1+count1+delay2)){
-				var doorMoveR = per;
-			}else if((doorCountR-delay1-count1-delay2) < count2){
-				var doorMoveR = per+(1-per)*((doorCountR-delay1-count1-delay2)/count2);
-			}else{
-				var doorMoveR = 1;
-			}
-		}else{
-			var doorMoveR = 0;
-		}
-	}else{
-		var doorMoveL = 0;
-		var doorMoveR = 0;
-	}
-	if(!doorStateL){
-		var doorMoveL = 1-doorMoveL;
-	}
-	if(!doorStateR) var doorMoveR = 1-doorMoveR;
-	if(sigmoid){
-		if(doorMoveL  <  0.1){
-			var doorMoveL = doorMoveL*renderer.sigmoid(0.1)/0.1;
-		}else if(0.9  <  doorMoveL){
-			var doorMoveL = doorMoveL*renderer.sigmoid(1-0.9)/0.1+(1-renderer.sigmoid(1-0.9)/0.1);
-		}else{
-			var doorMoveL = renderer.sigmoid(doorMoveL);
-		}
-		if(doorMoveR  <  0.1){
-			var doorMoveR = doorMoveR*renderer.sigmoid(0.1)/0.1;
-		}else if(0.9  <  doorMoveR){
-			var doorMoveR = doorMoveR*renderer.sigmoid(1-0.9)/0.1+(1-renderer.sigmoid(1-0.9)/0.1);
-		}else{
-			var doorMoveR = renderer.sigmoid(doorMoveR);
-		}
-	}
-	if(door_LFa){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveL*amount);
-		door_LFa.render(renderer);
-		GL11.glPopMatrix();
-	}
-	if(door_LBa){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveL*-amount);
-		door_LBa.render(renderer);
-		GL11.glPopMatrix();
-	}
-	if(door_RFa){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveR*amount);
-		door_RFa.render(renderer);
-		GL11.glPopMatrix();
-	}
-	if(door_RBa){
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0.0, 0.0, doorMoveR*-amount);
-		door_RBa.render(renderer);
-		GL11.glPopMatrix();
-	}
+//##### render_半透ドア ####################
+function render_door_a(entity,doorMove){
+	var doorMoveL = 0.0,
+		doorMoveR = 0.0;
+	try{
+		doorMoveL = renderer.sigmoid(entity.doorMoveL / 60) * doorMove;
+		doorMoveR = renderer.sigmoid(entity.doorMoveR / 60) * doorMove;
+	}catch(e){}
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, doorMoveL);
+	door_LFa.render(renderer);
+	GL11.glPopMatrix();
+	
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, -doorMoveL);
+	door_LBa.render(renderer);
+	GL11.glPopMatrix();
+	
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, doorMoveR);
+	door_RFa.render(renderer);
+	GL11.glPopMatrix();
+	
+	GL11.glPushMatrix();
+	GL11.glTranslatef(0.0, 0.0, -doorMoveR);
+	door_RBa.render(renderer);
+	GL11.glPopMatrix();
 }
-
 //##### render_パンタ ####################
 function render_panta(entity,pantaDistance,pantaType){
 	var pantaState = 0.0,
