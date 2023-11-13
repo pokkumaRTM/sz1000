@@ -16,6 +16,8 @@ function init(par1, par2)
 	body = renderer.registerParts(new Parts("exterior","Interior","front","in_car_equipment","in_car_equipment_mx","through_door","hood","lambord","roof_eq","cooler","cable","cab","skirt","Uf1","Uf2","light","coupler","obj1","logo","int_light"));
 	lightF = renderer.registerParts(new Parts("lightF"));
 	lightB = renderer.registerParts(new Parts("lightB"));
+	ExLF = renderer.registerParts(new Parts("ExlightF"));
+	ExLB = renderer.registerParts(new Parts("ExlightB"));
 	door_LF = renderer.registerParts(new Parts("doorFL","doorFL2"));
 	door_RF = renderer.registerParts(new Parts("doorFR","doorFR2"));
 	door_LB = renderer.registerParts(new Parts("doorBL","doorBL2"));
@@ -44,17 +46,24 @@ function init(par1, par2)
 	door_LS = renderer.registerParts(new Parts("door_LS"));
 	door_RS = renderer.registerParts(new Parts("door_RS"));
 	door_SE = renderer.registerParts(new Parts("door_LSE","door_RSE"));
-	//方向幕
-	sz_s1_ = [];
-	for	 (var i = 0; i <= 27; i++) {
-		var idx = (i < 10) ? ( "0" + i ) : i;
-		sz_s1_[i] = renderer.registerParts(new Parts("type-" + idx));
-	}
-	sz_s2_ = [];
-	for	 (var i = 0; i <= 27; i++) {
-		var idx = (i < 10) ? ( "0" + i ) : i;
-		sz_s2_[i] = renderer.registerParts(new Parts("dist-" + idx));
-	}
+	//レバー類
+	L_F = renderer.registerParts(new Parts("F"));
+	L_M = renderer.registerParts(new Parts("M"));
+	L_B = renderer.registerParts(new Parts("B"));
+	L_N = renderer.registerParts(new Parts("N"));
+	L_B1 = renderer.registerParts(new Parts("B1"));
+	L_B2 = renderer.registerParts(new Parts("B2"));
+	L_B3 = renderer.registerParts(new Parts("B3"));
+	L_B4 = renderer.registerParts(new Parts("B4"));
+	L_B5 = renderer.registerParts(new Parts("B5"));
+	L_B6 = renderer.registerParts(new Parts("B6"));
+	L_B7 = renderer.registerParts(new Parts("B7"));
+	L_EB = renderer.registerParts(new Parts("EB"));
+	L_P1 = renderer.registerParts(new Parts("P1"));
+	L_P2 = renderer.registerParts(new Parts("P2"));
+	L_P3 = renderer.registerParts(new Parts("P3"));
+	L_P4 = renderer.registerParts(new Parts("P4"));
+	L_P5 = renderer.registerParts(new Parts("P5"));
 }
 //バージョンチェック
 function MCVersionChecker() {
@@ -80,8 +89,10 @@ function render(entity, pass, par3)
 		door_EM.render(renderer);
 		door_SE.render(renderer);
 		render_door(entity, doorMove);
+		render_light(entity);
+		render_cab(entity);
 		render_panta(entity, pantaDistance, pantaType);
-		suzu_sign_script(entity);
+		u_base.render(renderer);
 	}
 	//半透明描画
 	if(pass == 1){
@@ -94,13 +105,136 @@ function render(entity, pass, par3)
 		body.render(renderer);
 		door_EM.render(renderer);
 		door_SE.render(renderer);
+		render_light(entity);
+		render_cab(entity);
 		render_door(entity, doorMove);
-		suzu_sign_script(entity);
+		u_base.render(renderer);
 	}
 	GL11.glPopMatrix();
 
 	//車掌スクリプト呼び出し
 	hi03_render_conductorSystem(entity, pass, par3);
+}
+
+//##### render_ライト ####################
+function render_light(entity){
+	var varsion = MCVersionChecker();
+	var lightMove = 0;
+	var ExState = 0;
+
+	if(entity != null){
+		if(varsion == "1.7.10" || varsion == "1.8.9" || varsion == "1.9.4"){
+		    // ExState = entity.getTrainStateData(11);
+			ExState = entity.getResourceState().getDataMap().getInt("Button5");
+		    lightMove = entity.getTrainStateData(0);
+		}else{
+		    ExState = entity.getResourceState().getDataMap().getInt("Button5");
+		    lightMove = entity.getVehicleState(TrainState.getStateType(0));
+		}
+
+	}
+
+	GL11.glPushMatrix();
+		if(lightMove == 0){
+ 		  if(ExState == 1){
+		   GL11.glPushMatrix();
+		    ExLF.render(renderer);
+		   GL11.glPopMatrix();
+		  }else{
+		   GL11.glPushMatrix();
+		    ExLB.render(renderer);
+		   GL11.glPopMatrix();
+  		  }
+		}else{
+		 GL11.glPushMatrix();
+		 ExLB.render(renderer);
+		 GL11.glPopMatrix();
+		}
+		if(lightMove == 0){
+		 GL11.glPushMatrix();
+		 lightF.render(renderer);
+		 GL11.glPopMatrix();
+		}else{
+		 GL11.glPushMatrix();
+		 lightB.render(renderer);
+		 GL11.glPopMatrix();
+		}
+	GL11.glPopMatrix();
+}
+
+//##### render_運転台 ####################
+function render_cab(entity){
+	var varsion = MCVersionChecker();
+	var st1 = 8;
+	var st10 = 0;
+	if(entity != null){
+		if(varsion == "1.7.10" || varsion == "1.8.9" || varsion == "1.9.4"){
+			st1 = entity.getTrainStateData(1) + 8;
+			st10 = entity.getTrainStateData(10);
+		}else{
+			st1 = entity.getVehicleState(TrainState.getStateType(1)) + 8;
+			st10 = entity.getVehicleState(TrainState.getStateType(10));
+		}
+	}
+
+	GL11.glPushMatrix();
+	switch (st10){
+		case 0:
+			L_F.render(renderer);
+			break;
+		case 1:
+			L_M.render(renderer);
+			break;
+	  	default:
+			L_B.render(renderer);
+			break;
+	}
+
+	switch (st1){
+		case 0:
+			L_EB.render(renderer);
+			break;
+		case 1:
+			L_B7.render(renderer);
+			break;
+		case 2:
+			L_B6.render(renderer);
+			break;
+		case 3:
+			L_B5.render(renderer);
+			break;
+		case 4:
+			L_B4.render(renderer);
+			break;
+		case 5:
+			L_B3.render(renderer);
+			break;
+		case 6:
+			L_B2.render(renderer);
+			break;
+		case 7:
+			L_B1.render(renderer);
+			break;
+		case 8:
+			L_N.render(renderer);
+			break;
+		case 9:
+			L_P1.render(renderer);
+			break;
+		case 10:
+			L_P2.render(renderer);
+			break;
+		case 11:
+			L_P3.render(renderer);
+			break;
+		case 12:
+			L_P4.render(renderer);
+			break;
+	  	default:
+			L_P5.render(renderer);
+			break;
+	}
+	GL11.glPopMatrix();
 }
 
 //##### render_ドア ####################
@@ -189,7 +323,6 @@ function render_door_a(entity,doorMove){
 	door_RBa.render(renderer);
 	GL11.glPopMatrix();
 }
-
 //##### render_パンタ ####################
 function render_panta(entity,pantaDistance,pantaType){
 	var pantaState = 0.0,
@@ -256,48 +389,31 @@ function render_panta(entity,pantaDistance,pantaType){
 
 //## 車掌システム関数 ver 1.4 ##
 function hi03_render_conductorSystem(entity, pass, par3) {
-    // //##  SETTINGS  ##
-    // var BuzzerKey = Keyboard.KEY_O;//ブザー
-    // var BellKey = Keyboard.KEY_L;//電鈴
-    // var DoorControlKey = Keyboard.KEY_LBRACKET;//ドア開閉
-    // var NextAnnounceKey = Keyboard.KEY_RIGHT;//次の放送
-    // var PrevAnnounceKey = Keyboard.KEY_LEFT;//前の放送
-    // var AnnounceKey = Keyboard.KEY_I;//車内放送
-    // var EBKey = Keyboard.KEY_Q;//非常ブレーキ
-    // // END
+    //##  SETTINGS  ##
+    var BuzzerKey = Keyboard.KEY_O;//ブザー
+    var BellKey = Keyboard.KEY_L;//電鈴
+    var DoorControlKey = Keyboard.KEY_LBRACKET;//ドア開閉
+    var NextAnnounceKey = Keyboard.KEY_RIGHT;//次の放送
+    var PrevAnnounceKey = Keyboard.KEY_LEFT;//前の放送
+    var AnnounceKey = Keyboard.KEY_I;//車内放送
+    var EBKey = Keyboard.KEY_Q;//非常ブレーキ
+    // END
 
-    // var player = MCWrapperClient.getPlayer();
-    // if (player && entity) {
-    //     var dataMap = entity.getResourceState().getDataMap();
-    //     var getPacketName = function (name) { return "hi03_keys_" + player.func_145782_y() + name; };
-    //     var sendKeyData = function(name, key){
-    //         var prevInput = dataMap.getBoolean(getPacketName(name));
-    //         var input = Keyboard.isKeyDown(key);
-    //         if(input !== prevInput) dataMap.setBoolean(getPacketName(name), input, 1);
-    //     };
-    //     sendKeyData("BuzzerKey", BuzzerKey);
-    //     sendKeyData("BellKey", BellKey);
-    //     sendKeyData("DoorControlKey", DoorControlKey);
-    //     sendKeyData("NextAnnounceKey", NextAnnounceKey);
-    //     sendKeyData("PrevAnnounceKey", PrevAnnounceKey);
-    //     sendKeyData("AnnounceKey", AnnounceKey);
-    //     sendKeyData("EBKey", EBKey);
-    // }
-}
-
-//すずみや製方向幕スクリプト
-function suzu_sign_script(entity) {
-	var version = MCVersionChecker();
-    if (entity != null) {
-		
-        var sz_s1 = entity.getResourceState().getDataMap().getInt("Button6");
-        var sz_s2 = entity.getResourceState().getDataMap().getInt("Button7");
-
-	var sz_s1 = Math.floor(sz_s1);
-	sz_s1_[sz_s1].render(renderer);
-
-	var sz_s2 = Math.floor(sz_s2);
-	sz_s2_[sz_s2].render(renderer);
-		
-}
+    var player = MCWrapperClient.getPlayer();
+    if (player && entity) {
+        var dataMap = entity.getResourceState().getDataMap();
+        var getPacketName = function (name) { return "hi03_keys_" + player.func_145782_y() + name; };
+        var sendKeyData = function(name, key){
+            var prevInput = dataMap.getBoolean(getPacketName(name));
+            var input = Keyboard.isKeyDown(key);
+            if(input !== prevInput) dataMap.setBoolean(getPacketName(name), input, 1);
+        };
+        sendKeyData("BuzzerKey", BuzzerKey);
+        sendKeyData("BellKey", BellKey);
+        sendKeyData("DoorControlKey", DoorControlKey);
+        sendKeyData("NextAnnounceKey", NextAnnounceKey);
+        sendKeyData("PrevAnnounceKey", PrevAnnounceKey);
+        sendKeyData("AnnounceKey", AnnounceKey);
+        sendKeyData("EBKey", EBKey);
+    }
 }

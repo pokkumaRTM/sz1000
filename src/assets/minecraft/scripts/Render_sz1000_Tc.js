@@ -66,7 +66,6 @@ function init(par1, par2)
 	L_P5 = renderer.registerParts(new Parts("P5"));
 	//運番
 	u_base = renderer.registerParts(new Parts("unban-base"));
-
 	sz_u1_ = [];
 	for	 (var i = 0; i <= 11; i++) {
 		var idx = (i < 10) ? ( "0" + i ) : i;
@@ -91,6 +90,17 @@ function init(par1, par2)
 	for	 (var i = 0; i <= 27; i++) {
 		var idx = (i < 10) ? ( "0" + i ) : i;
 		sz_u5_[i] = renderer.registerParts(new Parts("unban5-" + idx));
+	}
+	//方向幕
+	sz_s1_ = [];
+	for	 (var i = 0; i <= 27; i++) {
+		var idx = (i < 10) ? ( "0" + i ) : i;
+		sz_s1_[i] = renderer.registerParts(new Parts("type-" + idx));
+	}
+	sz_s2_ = [];
+	for	 (var i = 0; i <= 27; i++) {
+		var idx = (i < 10) ? ( "0" + i ) : i;
+		sz_s2_[i] = renderer.registerParts(new Parts("dist-" + idx));
 	}
 }
 //バージョンチェック
@@ -121,6 +131,7 @@ function render(entity, pass, par3)
 		render_cab(entity);
 		render_panta(entity, pantaDistance, pantaType);
 		suzu_unban_script(entity);
+		suzu_sign_script(entity);
 		u_base.render(renderer);
 	}
 	//半透明描画
@@ -138,6 +149,7 @@ function render(entity, pass, par3)
 		render_cab(entity);
 		render_door(entity, doorMove);
 		suzu_unban_script(entity);
+		suzu_sign_script(entity);
 		u_base.render(renderer);
 	}
 	GL11.glPopMatrix();
@@ -154,10 +166,11 @@ function render_light(entity){
 
 	if(entity != null){
 		if(varsion == "1.7.10" || varsion == "1.8.9" || varsion == "1.9.4"){
-		    ExState = entity.getTrainStateData(11);
+		    // ExState = entity.getTrainStateData(11);
+			ExState = entity.getResourceState().getDataMap().getInt("Button5");
 		    lightMove = entity.getTrainStateData(0);
 		}else{
-		    ExState = entity.getVehicleState(TrainState.getStateType(11));
+		    ExState = entity.getResourceState().getDataMap().getInt("Button5");
 		    lightMove = entity.getVehicleState(TrainState.getStateType(0));
 		}
 
@@ -165,7 +178,7 @@ function render_light(entity){
 
 	GL11.glPushMatrix();
 		if(lightMove == 0){
- 		  if(ExState >= 1){
+ 		  if(ExState == 1){
 		   GL11.glPushMatrix();
 		    ExLF.render(renderer);
 		   GL11.glPopMatrix();
@@ -473,6 +486,23 @@ function suzu_unban_script(entity) {
 
 	var sz_u5 = Math.floor(sz_u5);
 	sz_u5_[sz_u5].render(renderer);
+		
+}
+}
+
+//すずみや製方向幕スクリプト
+function suzu_sign_script(entity) {
+	var version = MCVersionChecker();
+    if (entity != null) {
+		
+        var sz_s1 = entity.getResourceState().getDataMap().getInt("Button6");
+        var sz_s2 = entity.getResourceState().getDataMap().getInt("Button7");
+
+	var sz_s1 = Math.floor(sz_s1);
+	sz_s1_[sz_s1].render(renderer);
+
+	var sz_s2 = Math.floor(sz_s2);
+	sz_s2_[sz_s2].render(renderer);
 		
 }
 }

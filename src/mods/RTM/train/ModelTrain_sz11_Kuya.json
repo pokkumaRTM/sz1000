@@ -11,7 +11,7 @@
 		["mat3", "textures/train/sz1000/alpha.png", "AlphaBlend"],
 		["mat4", "textures/train/sz1000/parts2.png", "Light"]
 	],
-				"rendererPath": "scripts/Render_sz1000_Tc.js"
+				"rendererPath": "scripts/Render_sz1000_kuya.js"
 },
 
 "bogieModel2": { "modelFile": "sz1000/DT80.mqo",
