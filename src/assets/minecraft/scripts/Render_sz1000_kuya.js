@@ -92,7 +92,6 @@ function render(entity, pass, par3)
 		render_light(entity);
 		render_cab(entity);
 		render_panta(entity, pantaDistance, pantaType);
-		u_base.render(renderer);
 	}
 	//半透明描画
 	if(pass == 1){
@@ -108,7 +107,6 @@ function render(entity, pass, par3)
 		render_light(entity);
 		render_cab(entity);
 		render_door(entity, doorMove);
-		u_base.render(renderer);
 	}
 	GL11.glPopMatrix();
 
