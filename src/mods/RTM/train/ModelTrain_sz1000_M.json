@@ -7,7 +7,7 @@
 	"modelFile": "sz1000/sz1000_M.mqo",
 	"textures": [
 		["mat1", "textures/train/sz1000/sz1000_M.png", "Light,AlphaBlend"],
-		["mat2", "textures/train/sz1000/parts.png", ""],
+		["mat2", "textures/train/sz1000/parts.png", "Light"],
 		["mat3", "textures/train/sz1000/alpha.png", "AlphaBlend"],
 		["mat4", "textures/train/sz1000/parts2.png", "Light"],
 		["mat5", "textures/train/sz1000/type.png", "Light"],
@@ -22,6 +22,23 @@
 
 "buttonTexture": "textures/train/sz1000/button/M.png",
 
+"serverScriptPath": "scripts/Server_sz1000.js",
+"soundScriptPath": "scripts/Sound_sz1000_M.js",
+"sound_BrakeRelease": "sound_mugenlib:RTMLib.Brake.BR10N",
+"sound_BrakeRelease2": "sound_mugenlib:RTMLib.Brake.BR10L",
+"sound_Horn": "sound_szsoundlib:SZkeiteki",
+"sound_DoorOpen": "",
+"sound_DoorClose": "",
+"sound_Announcement": [
+  ["0_Tobira", "sound_szsoundlib:sokusin"],
+  ["1_WaterCrown", "sound_mugenlib:RTMLib.sound.Water_Crown_3"],
+  ["2_GotaDel", "sound_mugenlib:RTMLib.sound.Gota_del_Vient"],
+  ["3_Taihi_AMelo", "sound_szsoundlib:SZ-Orange-A"],
+  ["4_Honsen_AMelo", "sound_szsoundlib:SZ-Diary-A"],
+  ["5_Honsen_BMelo", "sound_szsoundlib:SZ-Diary-B"],
+  ["6_Taihi_BMelo", "sound_szsoundlib:SZ-Orange-B"]
+],
+
 "customButtons": [
     ["運番左1: 無", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
 	["運番左2: 無", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -34,7 +51,7 @@
 	["未実装: 開", "閉", "一部開"]
 ],
 
-  "slotPos": [
+"slotPos": [
 	[0.81, 0, 9.42, 2], [0.81, 0, 8.55, 2], [0.81, 0, 6.16, 2], [0.81, 0, 5.27, 2], [0.81, 0, 4.58, 2], [0.81, 0, 3.69, 2], [0.81, 0, 1.23, 2],[0.81, 0, 0.42, 2],
     [0.81, 0, -9.42, 2], [0.81, 0, -8.55, 2], [0.81, 0, -6.16, 2], [0.81, 0, -5.27, 2], [0.81, 0, -4.58, 2], [0.81, 0, -3.69, 2], [0.81, 0, -1.23, 2],[0.81, 0, -0.42, 2],
 	[-0.81, 0, 9.42, 2], [-0.81, 0, 8.55, 2], [-0.81, 0, 6.16, 2], [-0.81, 0, 5.27, 2], [-0.81, 0, 4.58, 2], [-0.81, 0, 3.69, 2], [-0.81, 0, 1.23, 2],[-0.81, 0, 0.42, 2],

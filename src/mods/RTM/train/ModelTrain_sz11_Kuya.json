@@ -7,7 +7,7 @@
 	"modelFile": "sz1000/sz11_Kuya.mqo",
 	"textures": [
 		["mat1", "textures/train/sz1000/sz11_Kuya.png", "Light,AlphaBlend"],
-		["mat2", "textures/train/sz1000/parts.png", ""],
+		["mat2", "textures/train/sz1000/parts.png", "Light"],
 		["mat3", "textures/train/sz1000/alpha.png", "AlphaBlend"],
 		["mat4", "textures/train/sz1000/parts2.png", "Light"]
 	],
@@ -32,31 +32,35 @@
 	      [[-1.38, 2.18, 0.28], [-1.38, 2.04, 0.28], [-1.38, 2.04, -0.28], [-1.38, 2.18, -0.28]]],
       "doAnimation": false
     }
-  ],
+],
 
-  "serverScriptPath": "scripts/Server_sz1000.js",
-  "soundScriptPath": "scripts/Sound_sz1000_T.js",
-  "sound_BrakeRelease": "sound_mugenlib:RTMLib.Brake.BR10N",
-  "sound_BrakeRelease2": "sound_mugenlib:RTMLib.Brake.BR10L",
-  "sound_Horn": "sound_szsoundlib:SZkeiteki",
-  "sound_DoorOpen": "",
-  "sound_DoorClose": "",
-  "sound_Announcement": [
-	  ["0_Tobira", "sound_szsoundlib:sokusin"],
-	  ["1_WaterCrown", "sound_mugenlib:RTMLib.sound.Water_Crown_3"],
-	  ["2_GotaDel", "sound_mugenlib:RTMLib.sound.Gota_del_Vient"],
-	  ["3_Taihi_AMelo", "sound_szsoundlib:SZ-Orange-A"],
-	  ["4_Honsen_AMelo", "sound_szsoundlib:SZ-Diary-A"],
-	  ["5_Honsen_BMelo", "sound_szsoundlib:SZ-Diary-B"],
-	  ["6_Taihi_BMelo", "sound_szsoundlib:SZ-Orange-B"]
-  ],
+"serverScriptPath": "scripts/Server_sz1000.js",
+"soundScriptPath": "scripts/Sound_sz1000_T.js",
+"sound_BrakeRelease": "sound_mugenlib:RTMLib.Brake.BR10N",
+"sound_BrakeRelease2": "sound_mugenlib:RTMLib.Brake.BR10L",
+"sound_Horn": "sound_szsoundlib:SZkeiteki",
+"sound_DoorOpen": "",
+"sound_DoorClose": "",
+"sound_Announcement": [
+  ["0_Tobira", "sound_szsoundlib:sokusin"],
+  ["1_WaterCrown", "sound_mugenlib:RTMLib.sound.Water_Crown_3"],
+  ["2_GotaDel", "sound_mugenlib:RTMLib.sound.Gota_del_Vient"],
+  ["3_Taihi_AMelo", "sound_szsoundlib:SZ-Orange-A"],
+  ["4_Honsen_AMelo", "sound_szsoundlib:SZ-Diary-A"],
+  ["5_Honsen_BMelo", "sound_szsoundlib:SZ-Diary-B"],
+  ["6_Taihi_BMelo", "sound_szsoundlib:SZ-Orange-B"]
+],
 
 "customButtons": [
-    ["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-	["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-	["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-	["null", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-	["null", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    ["運番左1: 無", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["運番左2: 無", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["運番中: 無", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["運番右2: 無", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+	["運番右1: 無", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+	["急行灯: 切", "入"],
+	["種別: 無", "回送", "試運転", "臨時", "貸切", "各停[単]", "各停", "区快[単]", "区快", "快速[単]", "快速", "通快[単]", "通快", "特急[単]", "特急", "特快[単]", "特快", "準急[単]", "準急", "通急[単]", "通急", "区急[単]", "区急", "急行[単]", "急行", "快急[単]", "快急"],
+	["行先: 無", "涼宮中央", "五月町", "桃天寺", "古川筋本町", "神原", "岡咲美南", "樹浦中央", "中保", "新田", "新中保", "双川", "紅葉台", "大川町", "今宿", "木戸"],
+	["未実装: 開", "閉", "一部開"]
 ],
 
 "slotPos": [
