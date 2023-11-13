@@ -23,29 +23,6 @@
 
 "buttonTexture": "textures/train/sz1000/button/Tc.png",
 
-"rollsignTexture": "textures/train/sz1000/sign.png",
-"rollsignNames": [
- "null",
- "local",
- "rapid",
- "express",
- "ltd-exp",
- "not-in-service",
- "test-run",
- "minato-cc",
- "null",
- "duel"
-],
-
-  "rollsigns": [{
-      "uv": [0.0, 1.0, 0.0, 1.0],
-      "pos": [[[0.66, 2.36, 9.7], [0.66, 2.14, 9.7], [-0.22, 2.14, 9.71], [-0.22, 2.36, 9.71]],
-	      [[1.38, 2.18, -0.28], [1.38, 2.04, -0.28], [1.38, 2.04, 0.28], [1.38, 2.18, 0.28]],
-	      [[-1.38, 2.18, 0.28], [-1.38, 2.04, 0.28], [-1.38, 2.04, -0.28], [-1.38, 2.18, -0.28]]],
-      "doAnimation": false
-    }
-  ],
-
   "serverScriptPath": "scripts/Server_sz1000.js",
   "soundScriptPath": "scripts/Sound_sz1000_T.js",
   "sound_BrakeRelease": "sound_mugenlib:RTMLib.Brake.BR10N",
