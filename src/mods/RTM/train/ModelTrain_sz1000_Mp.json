@@ -10,8 +10,8 @@
 		["mat2", "textures/train/sz1000/parts.png", ""],
 		["mat3", "textures/train/sz1000/alpha.png", "AlphaBlend"],
 		["mat4", "textures/train/sz1000/parts2.png", "Light"],
-		["mat5", "textures/train/sz1000/type.png", ""],
-		["mat6", "textures/train/sz1000/dist_susnsk.png", ""]
+		["mat5", "textures/train/sz1000/type.png", "Light"],
+		["mat6", "textures/train/sz1000/dist_susnsk.png", "Light"]
 	],
 				"rendererPath": "scripts/Render_sz1000_T.js"
 },
@@ -70,7 +70,6 @@
 "smoothing": true,
 "notDisplayCab": false,
 "muteJointSound": true,
-"accuracy": "LOW",
 "accelerateion" : 0.002,
 "maxSpeed": [0.347, 0.76, 1.04, 1.39, 1.81],
 "playerPos": [[0.0, 0.2, 8.95], [0.0, 0.2, -8.95]],
